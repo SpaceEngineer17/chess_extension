@@ -6,5 +6,7 @@ This entire project done for the purpose of challenge and education.
 Not for the purpose of cheating
 
 # Credits
- - [WebSocket Server] (https://github.com/Pithikos/python-websocket-server.git)
- - [Python] (https://www.python.org/)
+ - [WebSocket Server](https://github.com/Pithikos/python-websocket-server.git)
+ - [Python](https://www.python.org/)
+ - All opensource softwares and developers.
+ - 
