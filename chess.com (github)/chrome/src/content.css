@@ -1,0 +1,52 @@
+/*--GAME BOX--*/
+#suggestbox{
+  height: 40%;
+  background-color: rgba(26, 26, 26, 0.733);
+  border-radius: 20px;
+  padding: 20px;
+  margin: 0px 0px 10px 0px;
+}
+
+#bestmove_n{
+  font-size: medium;
+  color: rgb(161, 6, 192);
+  padding: 5px 2px;
+}
+#bestmove_v{
+  background-color: rgba(0, 0, 0, 0.767);
+  color: rgba(3, 160, 16, 0.726);
+  padding: 2px 5px 10px;
+  border-radius: 5px;
+}
+
+/*-- INFO BOX --*/
+#infobox{
+  height: 60%;
+  background-color: rgba(26, 26, 26, 0.76);
+  border-radius: 20px;
+  padding: 20px;
+  position: relative;
+}
+
+#myServerEle{
+  padding: 1px 1px;
+  border: 3px solid black;
+  border-radius: 10px;
+  margin: 10px 3px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#myServerInfoEle{
+  user-select: none;
+  margin: 2px, auto;
+  scale: 1.2;
+}
+
+#myServerEle input{
+  background-color: rgb(0, 0, 0);
+  color: white;
+  border-radius: 20px;
+}

@@ -1,0 +1,127 @@
+"""
+IDEA:
+ stockfish readPIPE, writePIPE
+ new PIPES x; inside (ReadThread)
+
+ 0. js client send moves
+ 1. user input (moves) -> wPipe
+ 2. Process wPIPE (done by stockfish)
+ 3. rPIPE is read from stockfish
+ 4. rPIPE is copied to xPIPE
+ 5. xPIPE is used get relavent data with time limits as per js client.
+ 6. send to js
+
+"""
+
+## PROBLEM - Implementing 5 - Timed ReadThread ##
+# ! test2.py - Implementing non-blocking provides timeout but resulting in closure of PIPE
+# :) use known line ends.. and check only after input - Remove Problem Solution
+
+
+"""
+NEW IDEA:
+ 1. Spawn a Process p;
+ 2. Create a fake Process(class) f.
+ 3. In f:
+    1. Read f.stdin (UserInput) -> Process f.stdin -> Ok? Write p.stdin
+    2. Read p.stdout -> Process p.stdout -> Ok? Write f.stdout (OutputUser)
+
+  ---Example ---
+
+```python
+class ReadThread(threading.Thread):
+  def __init__(self, name, stream):
+    """
+    Using only for Terminal Output.
+    `stream.read` -> `self.stdout.write` \n\n
+    Performs a read operation on given output stream `stream`
+    in a new Thread named `name`. \n
+    The read data is stored in `self.data`
+
+    Create two pipes
+      `self.stdin`(copy write pipe, internal),
+      `self.stdout`(copy read pipe, external)
+
+    All the data that comes from `stream.read` (i.e what's added to self.data) is written to
+    `self.stdin` from internally which can be read
+    using `self.stdout` externally. \n
+    """
+    super().__init__()
+    self.name = name
+    self.stream = stream
+    self.daemon = True
+
+    self.data = ""
+
+
+    #Create copy pipes
+    r, w = os.pipe()
+    self.stdin = os.fdopen(w, "wb", buffering=0) #Performance? Who cares😀
+    self.stdout = os.fdopen(r, "rb", buffering=0)
+
+  def run(self):
+    try:
+      while True:
+        buff = self.stream.read(1)
+        if buff == b"": #EOF sent (stdin.close in program) or program stopped / Ctrl-C
+          break
+        self.stdin.write(buff)
+        self.stdin.flush()
+        self.data += buff.decode("utf-8")
+        print(buff, end="")
+
+    except KeyboardInterrupt:
+      return
+```
+"""
+
+
+"""
+TEST
+```algorithm
+
+i = 0
+max = 9
+while i<=max
+  DISPLAY Hi
+  i++
+
+------ flow
+| i |  i<=9  | DISPLAY |  i++  |
+------------------------------
+  0    True     Hi        1
+  1    True     Hi        2
+  2    True     Hi        3
+  3    True     Hi        4
+  4    True     Hi        5
+  5    True     Hi        6
+  6    True     Hi        7
+  7    True     Hi        8
+  8    True     Hi        9
+  9    True     Hi        10
+  10   False  -- BREAK --
+
+So <= runs max+1 times when starting from i=0
+
+
+i = 0
+max = 9
+while i<max
+  DISPLAY Hi
+  i++
+
+------ flow
+| i |  i<9  | DISPLAY |  i++  |
+------------------------------
+  0    True     Hi        1
+  1    True     Hi        2
+  2    True     Hi        3
+  3    True     Hi        4
+  4    True     Hi        5
+  5    True     Hi        6
+  6    True     Hi        7
+  7    True     Hi        8
+  8    True     Hi        9
+  9    False  -- BREAK --
+```
+"""

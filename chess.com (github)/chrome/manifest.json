@@ -1,0 +1,22 @@
+{
+  "name" : "Chess Master",
+  "description" : "Chess.com Cheat Extenstion",
+  "version": "1.0",
+  "manifest_version" : 3,
+
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "tabs"
+  ],
+
+
+  "content_scripts": [
+    {
+      "js": ["src/functions.js", "src/content.js"],
+      "css" : ["src/content.css"],
+      "matches": ["https://www.chess.com/play/*", "https://www.chess.com/practice/*", "https://www.chess.com/game/*"],
+      "run_at": "document_idle"
+    }
+  ]
+}
