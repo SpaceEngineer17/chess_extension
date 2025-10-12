@@ -1,4 +1,4 @@
-# chess.com_extension
+# chess_extension
 A Browser extension for chess.com.
 
 # Disclaimer
