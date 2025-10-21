@@ -39,13 +39,22 @@ Using the Extension.
 - It will show the next best move for both armies.
 
  Tips:
-   > On First Run of Extension, Clicking 😈 won't change to 😀, as connection if failed to establish. <br>
-   To solve this, visit "https://localhost:9999" once and procede to `Trust the Certificate` as this makes your browser trust the
-   self-signed certs and is is necessary to establish as secure websocket connection
-   Now 😈 onclick --> 😀.
-   Citations: Since we are running on a HTTPS website, we cannot use HTTP for websockets as of [this](https://stackoverflow.com/a/50861413/31419782) and hence forced to      use Secure WebSockets.
+   > 😈 --> 😀 on First Run.
+On First Run of Extension, Clicking 😈 won't change to 😀, as connection is failed to establish. <br>
+To solve this, visit "https://localhost:9999" once and procede to `Advance/Trust the Certificate` as this makes your browser trust the
+self-signed certs and is is necessary to establish as secure websocket connection.
+Now 😈 onclick --> 😀.
 
-   But note it can work with HTTP WebSocket in FireFox, all you need to do change is one line in `server.py`.
+   On Chrome, Since we are running on a HTTPS website, we cannot use HTTP for websockets as of [this](https://stackoverflow.com/a/50861413/31419782) and hence forced     to use Secure WebSockets.
+
+   But note it can work with HTTP WebSocket in FireFox, all you need to do change one line in `server.py` to not use tls.
+
+   > When you are playing in the middle of game and use forward/backward moves, please note it will mess up the game logic as of now.
+If so,
+1. Go the starting position, (better `Stop` befor that)
+2. `Reset Game Data`,
+3. `Start`,
+4. Now come to the last position and wait for the bestmove.
 
 # Credits
  - [WebSocket Server](https://github.com/Pithikos/python-websocket-server.git)
